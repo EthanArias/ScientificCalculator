@@ -19,8 +19,10 @@ private:
     inline int operators(char op) {
         if (op == '+' || op == '-')
             return 1;
-        if (op == '*' || op == '/')
+        if (op == '*' || op == '/' || op == '%')
             return 2;
+        if (op == '^')
+            return 3;
         return 0;
     };
     // The maths
@@ -30,6 +32,8 @@ private:
         case '-': return a - b;
         case '*': return a * b;
         case '/': return a / b;
+        case '%': return a % b;
+        case '^': return pow(a,b);
         }
         return 0;
     };

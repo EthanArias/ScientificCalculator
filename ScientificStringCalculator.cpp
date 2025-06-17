@@ -197,7 +197,7 @@ std::string const ScientificStringCalculator::GiveInFix()
             s.push(std::string(1, c)); // Convert char to string
         }
         else if (operators(c)!=0) {
-            if (s.size() < 2) {
+            if (s.size() < 3) {
                 return "Invalid Expression"; // Handle insufficient operands
             }
             std::string operand2 = s.top(); s.pop();
