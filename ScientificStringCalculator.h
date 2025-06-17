@@ -12,6 +12,8 @@ public:
     inline void operator() ();
     inline void operator() (std::string expression);
     int evaluate();
+    inline std::string const GivePostFix();
+    std::string const GiveInFix();
 private:
     // Finding operators 
     inline int operators(char op) {

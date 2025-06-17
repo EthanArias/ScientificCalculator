@@ -66,22 +66,22 @@ void ScientificStringCalculator::set(std::string expression)
     equation = resultString;
 }
 
-ScientificStringCalculator::ScientificStringCalculator()
+inline ScientificStringCalculator::ScientificStringCalculator()
 {
     equation = "";
 }
 
-ScientificStringCalculator::ScientificStringCalculator(std::string expression)
+inline ScientificStringCalculator::ScientificStringCalculator(std::string expression)
 {
     set(expression);
 }
 
-void ScientificStringCalculator::operator()()
+inline void ScientificStringCalculator::operator()()
 {
     equation = "";
 }
 
-void ScientificStringCalculator::operator()(std::string expression)
+inline void ScientificStringCalculator::operator()(std::string expression)
 {
     set(expression);
 }
@@ -180,4 +180,35 @@ int ScientificStringCalculator::evaluate()
 
     // Top of 'numbers' contains result, return
     return numbers.top();
+}
+
+inline std::string const ScientificStringCalculator::GivePostFix()
+{
+    return equation;
+}
+
+std::string const ScientificStringCalculator::GiveInFix()
+{
+    std::stack<std::string> s;
+    std::string postfix = equation;
+
+    for (char c : postfix) {
+        if (isalnum(c)) {
+            s.push(std::string(1, c)); // Convert char to string
+        }
+        else if (operators(c)!=0) {
+            if (s.size() < 2) {
+                return "Invalid Expression"; // Handle insufficient operands
+            }
+            std::string operand2 = s.top(); s.pop();
+            std::string operand1 = s.top(); s.pop();
+            s.push("(" + operand1 + c + operand2 + ")");
+        }
+    }
+
+    if (s.size() != 1) {
+        return "Invalid Expression"; // Handle remaining elements
+    }
+
+    return s.top();
 }
